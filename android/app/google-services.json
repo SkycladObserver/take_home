@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "579780778722",
+    "project_id": "eigital-take-home",
+    "storage_bucket": "eigital-take-home.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:579780778722:android:29fe92bf70b54d0e551cbb",
+        "android_client_info": {
+          "package_name": "com.banonas.eigitaltakehome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "579780778722-q67ketn4ega5v59os70pfkthbtv8iqfp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.banonas.eigitaltakehome",
+            "certificate_hash": "c39ee444891e2fe4ab9333a0dd0ef079778e7a22"
+          }
+        },
+        {
+          "client_id": "579780778722-c3sfh2p92enpjobchlvhvr1a6b8hbrnv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBINm0CXI8CSP3v9KJrRvHt_H15gC7r754"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "579780778722-c3sfh2p92enpjobchlvhvr1a6b8hbrnv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

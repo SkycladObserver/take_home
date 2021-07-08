@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">banonas-eigital-take-home</string>
+    <string name="facebook_app_id">203483888332307</string>
+    <string name="fb_login_protocol_scheme">fb203483888332307</string>
+</resources>
