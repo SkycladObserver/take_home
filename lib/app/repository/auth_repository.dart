@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:take_home/cache/app_session_cache.dart';
+import 'package:take_home/cache/cache_consts.dart';
 import 'package:take_home/models/user.dart' as user_model;
 
 class GoogleLoginFailure implements Exception {}
@@ -17,8 +18,6 @@ class AuthRepository {
         _googleSignIn = googleSignIn ?? GoogleSignIn.standard();
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
-
-  static const userKey = "user_key";
 
   Future<void> loginWithGoogle() async {
     try {
@@ -69,6 +68,6 @@ class AuthRepository {
   }
 
   user_model.User get currentUser {
-    return AppSessionCache.instance.read(key: userKey) ?? user_model.User.empty;
+    return AppSessionCache.instance.read(userKey) ?? user_model.User.empty;
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:take_home/login/bloc/login_cubit.dart';
-import 'package:take_home/repositories/auth_repository.dart';
+import 'package:take_home/app/repository/auth_repository.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);

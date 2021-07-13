@@ -8,30 +8,29 @@ class CalculatorScreen extends StatelessWidget {
   const CalculatorScreen({Key? key}) : super(key: key);
 
   static Page get page => const MaterialPage<void>(child: CalculatorScreen());
+
   @override
   Widget build(BuildContext context) {
-    return _CalculatorScreenContent();
+    return BlocProvider<CalculatorCubit>(
+      create: (_) => CalculatorCubit(),
+      child: _CalculatorScreenContent(),
+    );
   }
 }
 
 class _CalculatorScreenContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CalculatorCubit>(
-      create: (_) => CalculatorCubit(),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [_CalculatorTextField(), _CalcButtonMatrix()],
-        ),
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [_CalculatorTextField(), _CalcButtonMatrix()],
       ),
     );
   }
 }
 
 class _CalculatorTextField extends StatelessWidget {
-  _CalculatorTextField({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Container(

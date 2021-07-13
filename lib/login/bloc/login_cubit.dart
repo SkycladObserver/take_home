@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:take_home/repositories/auth_repository.dart';
+import 'package:take_home/app/repository/auth_repository.dart';
 
 part 'login_state.dart';
 

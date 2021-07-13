@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:take_home/app/bloc/app_bloc.dart';
 import 'package:take_home/app/routes/routes.dart';
-import 'package:take_home/repositories/auth_repository.dart';
+import 'package:take_home/app/repository/auth_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

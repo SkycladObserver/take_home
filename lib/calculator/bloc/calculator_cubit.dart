@@ -14,7 +14,7 @@ class CalculatorCubit extends Cubit<CalculatorState> {
   void evaluate() {
     try {
       String result = _evaluate(state.expression);
-      result = removeDecimal(double.parse(result)).toString();
+      result = _removeDecimal(result);
       emit(state.copyWith(expression: result));
     } on FormatException {
       print("Format exception. Evaluation not processed.");
@@ -42,7 +42,8 @@ class CalculatorCubit extends Cubit<CalculatorState> {
   }
 
   // removes decimal for double
-  num removeDecimal(double val) {
-    return val % 1 == 0 ? val.toInt() : val;
+  String _removeDecimal(String val) {
+    final doubleVal = double.parse(val);
+    return (doubleVal % 1 == 0 ? doubleVal.toInt() : doubleVal).toString();
   }
 }

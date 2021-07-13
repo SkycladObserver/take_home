@@ -16,7 +16,11 @@ class AppSessionCache {
     map.remove(key);
   }
 
-  dynamic read({required String key}) {
+  bool contains(String key) {
+    return map.containsKey(key);
+  }
+
+  dynamic read(String key) {
     return map[key];
   }
 }
