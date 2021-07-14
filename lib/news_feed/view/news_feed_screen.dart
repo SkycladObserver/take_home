@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:take_home/news_feed/bloc/news_feed_cubit.dart';
@@ -17,7 +19,25 @@ class NewsFeedScreen extends StatelessWidget {
       child: BlocProvider(
         create: (context) =>
             NewsFeedCubit(context.read<NewsFeedRepository>())..retrieveFeed(),
-        child: _NewsFeedScreenContent(),
+        child: _NewsFeedScreenScaffold(),
+      ),
+    );
+  }
+}
+
+class _NewsFeedScreenScaffold extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final state = context.select((NewsFeedCubit cubit) => cubit.state);
+    return Scaffold(
+      body: _NewsFeedScreenContent(),
+      floatingActionButton: FloatingActionButton(
+        // refresh feed
+        onPressed: () =>
+            context.read<NewsFeedCubit>().retrieveFeed(refresh: true),
+        child: state.status == NewsFeedStatus.loading
+            ? const CircularProgressIndicator(color: Colors.white)
+            : const Icon(Icons.refresh),
       ),
     );
   }
@@ -35,7 +55,7 @@ class _NewsFeedScreenContent extends StatelessWidget {
 
     switch (state.status) {
       case NewsFeedStatus.loading:
-        return Center(child: CircularProgressIndicator());
+        return Center(child: const CircularProgressIndicator());
       case NewsFeedStatus.failure:
         return _NewsFeedFailure();
       default:
@@ -57,24 +77,24 @@ class _NewsFeedList extends StatelessWidget {
         final item = feed!.items![index];
 
         return ListTile(
-          title: title(item.title ?? ""),
-          subtitle: subtitle(item.description),
-          leading: thumbnail(item.enclosure?.url),
-          trailing: rightIcon(),
-          contentPadding: EdgeInsets.all(5.0),
-          onTap: () => openFeed(item.link),
+          title: _title(item.title ?? ""),
+          subtitle: _subtitle(item.description),
+          trailing: _trailing(),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          onTap: () => _openItem(item.link),
         );
       },
     );
   }
 
-  Future<void> openFeed(String? url) async {
+  Future<void> _openItem(String? url) async {
     if (url != null && await canLaunch(url)) {
-      await launch(url, forceSafariVC: true, forceWebView: false);
+      await launch(url, forceWebView: false);
     }
   }
 
-  Widget title(String title) {
+  Widget _title(String title) {
     return Text(
       title,
       style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
@@ -83,7 +103,7 @@ class _NewsFeedList extends StatelessWidget {
     );
   }
 
-  Widget subtitle(String? subtitle) {
+  Widget _subtitle(String? subtitle) {
     if (subtitle == null) {
       return SizedBox(height: 14);
     }
@@ -96,28 +116,11 @@ class _NewsFeedList extends StatelessWidget {
     );
   }
 
-  Widget thumbnail(String? imageUrl) {
-    if (imageUrl == null) {
-      return SizedBox(height: 50, width: 70);
-    }
-
-    return Padding(
-      padding: EdgeInsets.only(left: 15.0),
-      child: Image.network(
-        imageUrl,
-        width: 70,
-        height: 50,
-        cacheWidth: 70,
-        cacheHeight: 50,
-      ),
-    );
-  }
-
-  Widget rightIcon() {
+  Widget _trailing() {
     return Icon(
-      Icons.keyboard_arrow_right,
+      Icons.chevron_right,
       color: Colors.grey,
-      size: 30.0,
+      size: 20,
     );
   }
 }

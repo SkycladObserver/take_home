@@ -5,7 +5,7 @@ import 'package:webfeed/domain/rss_feed.dart';
 
 part 'news_feed_state.dart';
 
-const String feedUrl = 'https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss';
+const String feedUrl = 'http://rss.cnn.com/rss/edition.rss';
 
 class NewsFeedCubit extends Cubit<NewsFeedState> {
   NewsFeedCubit(this._repo)
@@ -13,6 +13,8 @@ class NewsFeedCubit extends Cubit<NewsFeedState> {
 
   final NewsFeedRepository _repo;
 
+  /// [refresh] if true, will retrieve from remote. if false, return from cache
+  /// if exists.
   void retrieveFeed({bool refresh = false}) async {
     Uri url = Uri.parse(feedUrl);
 

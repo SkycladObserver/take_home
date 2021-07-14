@@ -6,7 +6,7 @@ import 'package:webfeed/domain/rss_feed.dart';
 class NewsFeedRepository {
   AppSessionCache get cache => AppSessionCache.instance;
 
-  /// [refresh] to get feed from remote
+  /// [refresh] set to true to get feed from remote
   /// [url] url of feed
   Future<RssFeed> retrieveFeed(Uri url, {bool refresh = false}) async {
     // if there is newsFeed in cache and refresh = false, retrieve from cache.
@@ -17,6 +17,7 @@ class NewsFeedRepository {
     try {
       final client = Client();
       final resp = await client.get(url);
+      client.close();
       final feed = RssFeed.parse(resp.body);
 
       cache.write(key: newsFeedKey, value: feed);
