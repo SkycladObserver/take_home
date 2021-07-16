@@ -56,7 +56,7 @@ class _HomeDrawer extends StatelessWidget {
               color: Colors.blue,
               child: Padding(
                 padding: EdgeInsets.fromLTRB(15, 20, 0, 20),
-                child: Text(welcomeText),
+                child: Text(welcomeText, style: TextStyle(color: Colors.white)),
               ),
             ),
             ListTile(

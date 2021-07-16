@@ -2,12 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:take_home/components/tap_to_retry_screen.dart';
 import 'package:take_home/map/bloc/camera_cubit.dart';
 import 'package:take_home/map/bloc/destination_cubit.dart';
 import 'package:take_home/map/bloc/location_cubit.dart';
+import 'package:take_home/map/model/directions.dart';
 import 'package:take_home/map/repository/directions_repository.dart';
+
+part 'map_instruction_overlay.dart';
 
 class MapScreen extends StatelessWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -50,7 +54,12 @@ class _MapScreenContent extends StatelessWidget {
       body: _MapMain(),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
         onPressed: () => onPressedToggleDirections(context),
+        child: Icon(
+          Icons.location_on,
+          color: Colors.black,
+        ),
       ),
     );
   }
@@ -86,7 +95,6 @@ class _MapMainState extends State<_MapMain> {
   Widget build(BuildContext context) {
     final currentLoc =
         context.select((LocationCubit cubit) => cubit.state.position)!;
-
     final destinationState =
         context.select((DestinationCubit cubit) => cubit.state);
 
@@ -103,37 +111,49 @@ class _MapMainState extends State<_MapMain> {
               target: currentLoc,
               zoom: _zoom,
             ),
-            markers: {
-              Marker(
-                markerId: const MarkerId('origin'),
-                infoWindow: const InfoWindow(title: 'Origin'),
-                position: currentLoc,
-              ),
-              if (!destinationState.isHidden)
-                Marker(
-                  markerId: const MarkerId('destination'),
-                  infoWindow: const InfoWindow(title: 'Destination'),
-                  position: destinationState.position,
-                  icon: BitmapDescriptor.defaultMarkerWithHue(
-                      BitmapDescriptor.hueMagenta),
-                ),
-            },
-            polylines: {
-              if (destinationState.hasDirections)
-                Polyline(
-                  polylineId: const PolylineId('origin_dest_polyline'),
-                  color: Colors.red,
-                  width: 5,
-                  points: destinationState.polylineToLatLng!,
-                ),
-            },
+            markers: _getMarkers(currentLoc, destinationState),
+            polylines: _getPolylines(destinationState),
             onMapCreated: (controller) {
               _controller.complete(controller);
             },
-          )
+          ),
+          if (context
+              .select((DestinationCubit cubit) => cubit.state.hasDirections))
+            _MapInstructionOverlay(),
         ],
       ),
     );
+  }
+
+  Set<Marker> _getMarkers(
+      LatLng currentLoc, DestinationState destinationState) {
+    return {
+      Marker(
+        markerId: const MarkerId('origin'),
+        infoWindow: const InfoWindow(title: 'Origin'),
+        position: currentLoc,
+      ),
+      if (!destinationState.isHidden)
+        Marker(
+          markerId: const MarkerId('destination'),
+          infoWindow: const InfoWindow(title: 'Destination'),
+          position: destinationState.position,
+          icon: BitmapDescriptor.defaultMarkerWithHue(
+              BitmapDescriptor.hueMagenta),
+        )
+    };
+  }
+
+  Set<Polyline> _getPolylines(DestinationState destinationState) {
+    return {
+      if (destinationState.hasDirections)
+        Polyline(
+          polylineId: const PolylineId('origin_dest_polyline'),
+          color: Colors.red,
+          width: 5,
+          points: destinationState.polylineToLatLng!,
+        )
+    };
   }
 
   Future<void> animateTo(CameraState state) async {

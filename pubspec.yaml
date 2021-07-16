@@ -29,6 +29,7 @@ dependencies:
   flow_builder: ^0.0.3
   flutter_bloc: ^7.0.1
   flutter_facebook_auth: ^3.5.0
+  flutter_html: ^2.1.0
   flutter_polyline_points: ^1.0.0
   google_maps_flutter: ^2.0.6
   google_sign_in: ^5.0.4
