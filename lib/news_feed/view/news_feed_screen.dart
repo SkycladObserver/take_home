@@ -1,7 +1,6 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:take_home/components/tap_to_retry_screen.dart';
 import 'package:take_home/news_feed/bloc/news_feed_cubit.dart';
 import 'package:take_home/news_feed/repository/news_feed_repository.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -128,13 +127,9 @@ class _NewsFeedList extends StatelessWidget {
 class _NewsFeedFailure extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return TapToRetryScreen(
+      content: Text("Failure retrieving feed. Tap to retry."),
       onTap: () => context.read<NewsFeedCubit>().retrieveFeed(refresh: true),
-      child: Container(
-        child: Center(
-          child: Text("Failure retrieving feed. Tap to retry."),
-        ),
-      ),
     );
   }
 }

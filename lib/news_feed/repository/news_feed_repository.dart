@@ -15,9 +15,7 @@ class NewsFeedRepository {
     }
 
     try {
-      final client = Client();
-      final resp = await client.get(url);
-      client.close();
+      final resp = await get(url);
       final feed = RssFeed.parse(resp.body);
 
       cache.write(key: newsFeedKey, value: feed);

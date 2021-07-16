@@ -3,7 +3,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:take_home/cache/app_session_cache.dart';
 import 'package:take_home/cache/cache_consts.dart';
-import 'package:take_home/models/user.dart' as user_model;
+import 'package:take_home/app/model/user.dart' as user_model;
 
 class GoogleLoginFailure implements Exception {}
 
