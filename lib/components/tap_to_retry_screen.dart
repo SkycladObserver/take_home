@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-/// Used for when
+/// Used for when a feature is in failure state. tap to reset back to a diff state
 class TapToRetryScreen extends StatelessWidget {
   const TapToRetryScreen(
       {Key? key, this.content = const SizedBox(), this.onTap})

@@ -25,7 +25,7 @@ class DestinationState extends Equatable {
   bool get hasDirections => this.directions != null;
 
   List<LatLng>? get polylineToLatLng => directions?.polylinePoints
-      ?.map((point) => LatLng(point.latitude, point.longitude))
+      .map((point) => LatLng(point.latitude, point.longitude))
       .toList();
 
   @override

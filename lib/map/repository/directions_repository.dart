@@ -23,7 +23,6 @@ class DirectionsRepository {
       }));
 
       if (resp.statusCode == 200) {
-        print(resp.body);
         return Directions.fromMap(jsonDecode(resp.body));
       }
 

@@ -41,7 +41,8 @@ class _HomeDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final name = context.select((AppBloc bloc) => bloc.currentUser.name);
-    final welcomeText = 'Welcome' + (name == null ? '!' : ', $name!');
+    final welcomeText =
+        'Welcome' + (name == null || name.isEmpty ? '!' : ', $name!');
 
     return Drawer(
       // Add a ListView to the drawer. This ensures the user can scroll

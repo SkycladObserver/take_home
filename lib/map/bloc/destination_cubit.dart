@@ -17,7 +17,7 @@ class DestinationCubit extends Cubit<DestinationState> {
   final Random random = Random();
 
   // note that google's docs themselves mentioned that ~10km away from center point
-  // is +/- 0.1
+  // is +/- 0.1 LatLng.
   // https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-multiple-countries
   static const double maxDistance = .1;
 
@@ -40,13 +40,14 @@ class DestinationCubit extends Cubit<DestinationState> {
   }
 
   /// generate a random point within a circle where radius = [maxDistance]
+  /// and center = [origin]
   LatLng _generateRandomDestination(LatLng origin) {
     final r = maxDistance * sqrt(random.nextDouble());
     final theta = random.nextDouble() * 2 * pi;
 
     final x = origin.latitude + r * cos(theta);
     final y = origin.longitude + r * sin(theta);
-    print('origin: $origin. destination: ${LatLng(x, y)}');
+
     return LatLng(x, y);
   }
 }

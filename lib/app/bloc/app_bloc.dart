@@ -29,10 +29,6 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     if (event is AppUserChanged) {
       yield _mapUserChangedToState(event, state);
     }
-
-    // else if (event is AppLogoutRequested) {
-    //   unawaited(_authenticationRepository.logOut());
-    // }
   }
 
   AppState _mapUserChangedToState(AppUserChanged event, AppState state) {
